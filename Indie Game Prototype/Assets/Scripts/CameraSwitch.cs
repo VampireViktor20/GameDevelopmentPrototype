@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CameraSwitch : MonoBehaviour
 {
-    [SerializeField] private CinemachineFreeLook thirdPersonCam;
+    [SerializeField] private CinemachineVirtualCamera thirdPersonCam;
 
     [SerializeField] private CinemachineVirtualCamera aimCam;
 
@@ -36,6 +36,8 @@ public class CameraSwitch : MonoBehaviour
 
         if (aimMode == true)
         {
+            float mouse = Input.GetAxis("Mouse Y");
+            transform.Rotate(new Vector3(-mouse, 0, 0));
             aimCrossHair.SetActive(true);
         }
         else if(aimMode == false)
