@@ -5,13 +5,14 @@ using Cinemachine;
 
 public class CameraSwitch : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera thirdPersonCam;
+    [SerializeField] private CinemachineFreeLook thirdPersonCam;
 
     [SerializeField] private CinemachineVirtualCamera aimCam;
 
-    [SerializeField] private bool aimMode;
+    [SerializeField] public bool aimMode;
+    public Gun gun;
 
-
+    public GameObject equipped;
     public GameObject aimCrossHair;
 
     void Start()
@@ -28,6 +29,7 @@ public class CameraSwitch : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
+
             aimMode = !aimMode;
             thirdPersonCam.enabled = !aimMode;
             aimCam.enabled = aimMode;
@@ -36,12 +38,16 @@ public class CameraSwitch : MonoBehaviour
 
         if (aimMode == true)
         {
-            float mouse = Input.GetAxis("Mouse Y");
-            transform.Rotate(new Vector3(-mouse, 0, 0));
+            if(Input.GetMouseButtonDown(0))
+            {
+                gun.ShootGun();
+            }
+            equipped.SetActive(true);
             aimCrossHair.SetActive(true);
         }
         else if(aimMode == false)
         {
+            equipped.SetActive(false);
             aimCrossHair.SetActive(false);
         }
         
