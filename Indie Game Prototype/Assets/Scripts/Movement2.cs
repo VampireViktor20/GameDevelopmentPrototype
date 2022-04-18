@@ -23,9 +23,12 @@ public class Movement2 : MonoBehaviour
     public LayerMask groundMask;
 
     public Transform playermesh;
-
+    public GameObject equipped;
+    public GameObject sheathedSword;
     public bool canMove;
     public bool canJump;
+    public bool equipSword = false;
+    
 
     Rigidbody rb;
 
@@ -161,24 +164,53 @@ public class Movement2 : MonoBehaviour
     void Update()
     {
 
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            equipSword = !equipSword;
+
+        }
+
+        if (equipSword == true)
+        {
+            sheathedSword.SetActive(false);
+            equipped.SetActive(true);
+            equipped.GetComponent<Sword>().UseSword();
+        }
+
+        else if(equipSword == false)
+        {
+            equipped.SetActive(false);
+            sheathedSword.SetActive(true);
+        }
+
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            jumpDown = true;
-        }
-        //canJump = Physics.CheckSphere(groundCheck.position, checkDisance, groundMask);
-
-        //if(canJump && Input.GetKeyDown(KeyCode.Space))
+        //if(Input.GetKeyDown(KeyCode.Space))
         //{
-        //    Rigidbody rb = GetComponent<Rigidbody>();
-        //    rb.velocity = Vector3.up * jump;
+        //    jumpDown = true;
         //}
+        canJump = Physics.CheckSphere(groundCheck.position, checkDisance, groundMask);
 
-      
+        if (canJump && Input.GetKeyDown(KeyCode.Space))
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.up * jump;
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = 9f;
+        }
+        else 
+        {
+            speed = 6f;
+        }
+
     }
+
+
 
     private void OnDrawGizmosSelected()
     {
@@ -190,4 +222,6 @@ public class Movement2 : MonoBehaviour
     {
         return (input.sqrMagnitude >= 1f) ? input.normalized : input;
     }
+
+
 }

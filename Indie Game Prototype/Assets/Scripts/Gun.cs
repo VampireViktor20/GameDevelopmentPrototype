@@ -23,6 +23,7 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(cam.position, cam.forward, out hit, Mathf.Infinity))
         {
+
             bullets.target = hit.point;
             bullets.hit = true;
         }

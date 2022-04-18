@@ -14,6 +14,7 @@ public class CameraSwitch : MonoBehaviour
 
     public GameObject equipped;
     public GameObject aimCrossHair;
+    public Movement2 movement;
 
     void Start()
     {
@@ -42,6 +43,8 @@ public class CameraSwitch : MonoBehaviour
             {
                 gun.ShootGun();
             }
+
+            movement.equipSword = false;
             equipped.SetActive(true);
             aimCrossHair.SetActive(true);
         }
