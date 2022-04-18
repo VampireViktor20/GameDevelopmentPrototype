@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(other.gameObject.tag == "Bullet")
+        if(other.CompareTag("Bullet"))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);

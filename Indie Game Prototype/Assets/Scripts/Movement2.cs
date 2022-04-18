@@ -44,7 +44,9 @@ public class Movement2 : MonoBehaviour
     {
 
 
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+
 
         Vector2 input = SquareToCircle(new Vector2(horizontal, vertical));
         Transform cam = Camera.main.transform;
