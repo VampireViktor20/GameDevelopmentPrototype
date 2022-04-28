@@ -6,6 +6,7 @@ public class Bullets : MonoBehaviour
 {
     public float speed = 50f;
     public float destroyTime = 3f;
+    public int  bulletDamage = 25;
 
     public Vector3 target { get; set; }
     public bool hit { get; set; }

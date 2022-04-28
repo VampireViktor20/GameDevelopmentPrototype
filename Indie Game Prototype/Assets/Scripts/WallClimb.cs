@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalClimb : MonoBehaviour
+public class WallClimb : MonoBehaviour
 {
 
     public float open = 100f;

@@ -6,6 +6,7 @@ public class Sword : MonoBehaviour
 {
 
     Animator anim;
+    public int swordDamage = 15;
 
     void Start()
     {

@@ -9,6 +9,8 @@ public class Phone : MonoBehaviour
     public Movement2 player;
     Animator anim;
     public Camera cam;
+ 
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -19,6 +21,8 @@ public class Phone : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             usingPhone = !usingPhone;
+
+
             PhoneToggle();
 
         }
@@ -60,4 +64,7 @@ public class Phone : MonoBehaviour
         anim.SetBool("PhoneAway", true);
     }
 
+
+    
 }
+
