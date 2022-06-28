@@ -8,6 +8,8 @@ TagManager:
   - Sword
   - Bullet
   - Enemy
+  - Knife
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Jumpable
   - Player
   - Obstacle
-  - 
+  - Enemy
   - 
   - 
   - 

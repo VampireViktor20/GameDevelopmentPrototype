@@ -10,11 +10,12 @@ public class WallClimb : MonoBehaviour
     public bool collideWall = false;
     public float climbSpeed = 6f;
     public Transform player;
+    public Animator anim;
 
 
     void Start()
     {
-        
+        anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
 
@@ -25,6 +26,7 @@ public class WallClimb : MonoBehaviour
 
         if(Input.GetKey(KeyCode.W) & collideWall == true)
         {
+            anim.SetBool("IsClimbing", true);
             transform.position += Vector3.up * Time.deltaTime * climbSpeed;
             GetComponent<Rigidbody>().isKinematic = true;
             collideWall = false;
@@ -33,6 +35,7 @@ public class WallClimb : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            anim.SetBool("IsClimbing", false);
             GetComponent<Rigidbody>().isKinematic = false;
             collideWall = false;
         }

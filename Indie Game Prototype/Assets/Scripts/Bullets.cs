@@ -5,8 +5,7 @@ using UnityEngine;
 public class Bullets : MonoBehaviour
 {
     public float speed = 50f;
-    public float destroyTime = 3f;
-    public int  bulletDamage = 25;
+    public float destroyTime = 5f;
 
     public Vector3 target { get; set; }
     public bool hit { get; set; }

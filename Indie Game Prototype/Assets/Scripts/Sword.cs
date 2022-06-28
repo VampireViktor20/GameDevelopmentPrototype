@@ -6,7 +6,6 @@ public class Sword : MonoBehaviour
 {
 
     Animator anim;
-    public int swordDamage = 15;
 
     void Start()
     {
@@ -24,13 +23,14 @@ public class Sword : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetBool("IsAttacking", true);
+            anim.SetBool("IsAttacking1", true);
         }
         else
         {
-            anim.SetBool("IsAttacking", false);
+            anim.SetBool("IsAttacking1", false);
         }
     }
+
 
     
 }

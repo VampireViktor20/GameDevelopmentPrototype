@@ -8,11 +8,9 @@ public class Movement2 : MonoBehaviour
 
 
 
-    public HealthBar healthbar;
     public float speed = 6f;
     public float jump = 5f;
     public float climbSpeed = 5f;
-    public int health = 100;
 
 
     public float checkDisance;
@@ -22,9 +20,9 @@ public class Movement2 : MonoBehaviour
     public Transform playermesh;
     public GameObject equipped;
     public GameObject sheathedSword;
-    public bool canMove;
+    public bool isRunning;
     public bool canJump;
-    public bool isClimbing = false;
+   
 
     public bool equipSword = false;
 
@@ -38,7 +36,7 @@ public class Movement2 : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = transform.GetChild(0).GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -59,14 +57,19 @@ public class Movement2 : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDir = forward * vertical + right * horizontal;
-       
 
+        Vector3 moveDir = forward * vertical + right * horizontal;
+        
+        
         rb.velocity = new Vector3(moveDir.x * speed, rb.velocity.y, moveDir.z * speed);
 
         if(moveDir != new Vector3 (0, 0, 0))
         {
             playermesh.rotation = Quaternion.LookRotation(moveDir);
+        }
+        else
+        {
+           
         }
 
     }
@@ -78,11 +81,39 @@ public class Movement2 : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.V))
         {
             equipSword = !equipSword;
+            anim.SetBool("IsDrawn", equipSword);
+            anim.SetBool("IsSwordIdle", true);
 
         }
+     
+      
 
         if (equipSword == true)
         {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+            {
+                anim.SetBool("IsArmedWalking", true);
+                anim.SetBool("IsSwordIdle", false);
+
+            }
+            else
+            {
+
+                anim.SetBool("IsArmedWalking", false);
+                anim.SetBool("IsSwordIdle", true);
+
+            }
+
+            if (Input.GetMouseButtonDown(0) && anim.GetBool("IsSwordIdle") == true) 
+            {
+                anim.SetBool("IsAttacking1", true);
+            }
+            else
+            {
+                anim.SetBool("IsAttacking1", false);
+            }
+
+       
             sheathedSword.SetActive(false);
             equipped.SetActive(true);
             equipped.GetComponent<Sword>().UseSword();
@@ -90,6 +121,7 @@ public class Movement2 : MonoBehaviour
 
         else if(equipSword == false)
         {
+            anim.SetBool("IsSwordIdle", false);
             equipped.SetActive(false);
             sheathedSword.SetActive(true);
         }
@@ -100,21 +132,47 @@ public class Movement2 : MonoBehaviour
 
         canJump = Physics.CheckSphere(groundCheck.position, checkDisance, groundMask);
 
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+        {
+            anim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            anim.SetBool("IsWalking", false);
+        }
+
+
+        
 
         if (canJump && Input.GetKeyDown(KeyCode.Space))
         {
+            StartCoroutine(JumpAnim());
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.velocity = Vector3.up * jump;
         }
+        
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            speed = 9f;
+            isRunning = !isRunning;
+            anim.SetBool("IsRunning", isRunning);
+
+            if (isRunning == true)
+            {
+
+                speed = 9f;
+               
+
+            }
+            else if (isRunning == false) 
+            {
+                speed = 6f;
+                
+                
+            }
         }
-        else 
-        {
-            speed = 6f;
-        }
+
+              
 
     }
 
@@ -127,7 +185,14 @@ public class Movement2 : MonoBehaviour
 
   
 
+    IEnumerator JumpAnim()
+    {
+        anim.SetBool("IsJumping", true);
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("IsJumping", false);
 
+    }
 
+    
 
 }

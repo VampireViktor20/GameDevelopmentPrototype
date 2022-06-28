@@ -18,6 +18,7 @@ public class Gun : MonoBehaviour
     public void ShootGun()
     {
         RaycastHit hit;
+
         GameObject bullet = GameObject.Instantiate(bulletPrefab, barrel.position, Quaternion.identity, bulletParent);
         Bullets bullets = bullet.GetComponent<Bullets>();
 
