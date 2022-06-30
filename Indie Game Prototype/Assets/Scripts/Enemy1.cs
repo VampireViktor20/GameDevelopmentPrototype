@@ -7,6 +7,7 @@ public class Enemy1 : MonoBehaviour
 {
 
     public EnemyHealth enemyHealth;
+    public PlayerHealth playerHealth;
     public GameObject player;
 
 
@@ -83,19 +84,32 @@ public class Enemy1 : MonoBehaviour
 
             anim.SetBool("IsAttacking", false);
             anim.SetBool("IsDead1", true);
-            enemy1.GetComponent<Enemy1>().enabled = false;
+            enemy1.navMeshAgent.enabled = false;
+            Destroy(gameObject, 3f);
+
 
 
 
         }
 
+        if(playerHealth.health == 0)
+        {
+            enemy1.GetComponent<Enemy1>().enabled = false;
+            enemy1.navMeshAgent.enabled = false;
+            anim.SetBool("IsWalking", false);
+            anim.SetBool("IsRunning", false);
+            StartCoroutine(PlayerDead());
+        }
+
+
 
     }
  
-
-
-
-
+    public IEnumerator PlayerDead()
+    {
+        anim.Play("Idle");
+        yield return new WaitForSeconds(0);
+    }
 
     private void Chasing()
     {

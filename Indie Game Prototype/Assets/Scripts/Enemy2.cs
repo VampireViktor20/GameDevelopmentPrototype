@@ -8,6 +8,7 @@ public class Enemy2 : MonoBehaviour
 
     public GameObject player;
     public EnemyHealth enemyHealth;
+    public PlayerHealth playerHealth;
 
 
     public Animator anim;
@@ -98,17 +99,33 @@ public class Enemy2 : MonoBehaviour
         if (enemyHealth.health == 0)
         {
 
-            enemy2.GetComponent<Enemy2>().enabled = false;
-
             StartCoroutine(Death());
         }
+
+        if(playerHealth.health == 0)
+        {
+            enemy2.GetComponent<Enemy2>().enabled = false;
+            enemy2.navMeshAgent.enabled = false;
+            anim.SetBool("IsWalking", false);
+            anim.SetBool("IsAiming", false);
+            StartCoroutine(PlayerDead());
+        }
+    }
+   
+    public IEnumerator PlayerDead()
+    {
+
+        anim.Play("Idle");
+        yield return new WaitForSeconds(0f);
     }
 
     public IEnumerator Death()
         {
-
+            enemy2.GetComponent<Enemy2>().enabled = false;
+            enemy2.navMeshAgent.enabled = false;
             anim.SetBool("IsDead2", true);
             yield return new WaitForSeconds(0f);
+        Destroy(gameObject, 3f);
         }
 
 
@@ -121,7 +138,7 @@ public class Enemy2 : MonoBehaviour
             Stop();
             isShooting = true;
             Instantiate(enemyBullet, enemyBulletBarrel.transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(1.75f);
+            yield return new WaitForSeconds(1f);
             isShooting = false;
         
 

@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Test1");
+        SceneManager.LoadScene("Test2");
     }
 
     public void OnApplicationQuit()

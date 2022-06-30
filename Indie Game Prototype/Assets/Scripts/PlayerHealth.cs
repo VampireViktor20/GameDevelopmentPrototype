@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     public Movement2 player;
     public CameraSwitch cam;
     public Animator anim;
+    public Enemy1 enemy1;
+    public Enemy2 enemy2;
 
     private void Start()
     {
@@ -23,11 +26,12 @@ public class PlayerHealth : MonoBehaviour
 
         if (health == 0)
         {
+            StartCoroutine(MainMenu());
             anim.SetBool("IsDead1", true);
             player.GetComponent<Movement2>().enabled = false;
             cam.GetComponent<CameraSwitch>().enabled = false;
-   
             
+
         }
     }
 
@@ -35,14 +39,19 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.tag == ("Knife"))
         {
-            health = health - 10f;
+            health = health - 5f;
         }
 
         if(collision.gameObject.tag == ("EnemyBullet"))
         {
-            health = health - 20f;
+            health = health - 5f;
         }
     }
     
+    public IEnumerator MainMenu()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("Menu");
+    }
 
 }

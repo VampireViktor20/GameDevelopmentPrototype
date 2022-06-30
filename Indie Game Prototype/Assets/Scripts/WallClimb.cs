@@ -26,7 +26,9 @@ public class WallClimb : MonoBehaviour
 
         if(Input.GetKey(KeyCode.W) & collideWall == true)
         {
+            anim.SetBool("IsIdle", false);
             anim.SetBool("IsClimbing", true);
+            
             transform.position += Vector3.up * Time.deltaTime * climbSpeed;
             GetComponent<Rigidbody>().isKinematic = true;
             collideWall = false;

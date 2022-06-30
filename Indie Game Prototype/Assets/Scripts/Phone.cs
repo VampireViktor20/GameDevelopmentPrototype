@@ -7,14 +7,11 @@ public class Phone : MonoBehaviour
 {
     public bool usingPhone;
     public Movement2 player;
-    Animator anim;
+    public GameObject phone;
     public Camera cam;
  
 
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
+   
 
     void Update()
     {
@@ -54,14 +51,14 @@ public class Phone : MonoBehaviour
    void UsingPhone()
     {
         Cursor.visible = true;
-        anim.SetBool("UsingPhone", true);
-        anim.SetBool("PhoneAway", false);
+        phone.SetActive(true);
+        
     }
 
     void PhoneAway()
     {
-        anim.SetBool("UsingPhone", false);
-        anim.SetBool("PhoneAway", true);
+        Cursor.visible = false;
+        phone.SetActive(false);
     }
 
 
